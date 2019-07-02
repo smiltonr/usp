@@ -1,0 +1,153 @@
+#+TITLE:  UNIX and Shell Programming
+#+AUTHOR: Assignment 1: Basic Commands 
+#+DATE: 2 July 2019
+
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+#+PROPERTY: header-args :exports none
+* Simple commands
+1. Log into your system. What are the user id (username) and password?
+2. Launch a terminal. Identify the prompt. What is it?
+3. Launch a terminal, maximize the window. Define a profile with the
+   color built-in scheme ``Black on light yellow''. Set your new
+   profile as the default profile.
+4. Try these commands:
+   - =echo=
+     - =echo string=
+     - =echo *=
+     - =echo=
+   - =date=
+     - Print date in dd-mm-yyyy format. Refer to the =man= page for
+       =date= to find out the option for this format.
+       #+BEGIN_EXAMPLE
+       man date
+       #+END_EXAMPLE
+     - Print time in hh-mm-ss format, hh is 0-24 hours.
+   - =cal=
+     - Print the calendar for the current month.
+     - Print the calendar for year 2020.
+     - Print the calendar for July 2020.
+   - =who= and =whoami=
+   - =uname= with options =-a=, =-s=, =-r=, =-sr=
+   - =df -h=
+     - How many partitions does your hard disk have? What is the total
+       size of the disk?
+   - =history=
+   - =clear=
+
+* Files
+- =cat=
+  - Create a file =poem.txt= with
+    #+BEGIN_EXAMPLE
+    cat > poem.txt
+    #+END_EXAMPLE
+    and typing the lines on the =stdin= (standard input).
+  - Print (display) the contents of =poem.txt= on =stdout= (standard output)
+- =touch=
+  - =touch poem= to update the time stamp of =poem.txt=
+  - Create a new empty file with =touch newpoem.txt=. Check the size
+    of =newpoem.txt=.
+  - Create =another-poem.txt=.
+- =ls=
+  - List the contents of your home directory.
+  - List the contents of your home directory.
+    - long format
+    - modified time order
+    - reverse modified time order 
+
+* Filesystem
+- =pwd=
+  - What is your home directory?
+- =cd=
+  - Move to your home directory.
+- =mkdir=
+  - Create a directory =myname= in your home.
+  - Move to =myname=.
+  - In =myname=, create the following directory structure. Check with
+    =tree=.
+    #+BEGIN_EXAMPLE
+    +-- junk
+    +-- recipes
+        +-- cookie
+        |   +-- choc.chip
+        +-- pie
+            +-- apple
+            +-- crust
+    #+END_EXAMPLE
+  - Move to =crust=.
+  - Move to =choc.chip=.
+  - Move to =myhome=.
+- =rmdir=
+  - Create a file =dish1= in =apple=.
+  - Remove directory =apple=.
+  - Remove the file =dish1= in =apple=.
+  - Now remove directory =apple=.
+- =cp=
+  - Create a file =dish1= in =crust=.
+  - Copy =dish1= to =dish2=.
+  - List the contents of =crust=.
+  - Copy the contents in =crust= to =apple=.
+- =mv=
+  - Rename =dish1= to =cookie1=, and =dish2= to =cookie2=.
+  - Move both =cookie1= and =cookie2= to the directory =cookie=
+  - Move =recipe= directory to =junk= directory.
+- =rm=
+  - Remove =dish1= in =apple=.
+  - Remove =cookie1= and =cookie2= in =cookie=.
+  - Remove =recipe= direcory in =junk=.
+- =ln=
+
+* COMMENT C Exercises
+3. *Reading input data*:
+   1. Read a list of numbers using =scanf()=. Format the list of
+      numbers as a line of numbers in the input file, as illustrated
+      below. Read the =n= items with a loop. In each iteration of the
+      loop, let =scanf()= read one number. \hfill (/sentinel/)
+      #+LATEX: \linespread{1}
+      #+BEGIN_EXAMPLE
+      10 20 30 40 50 60
+      #+END_EXAMPLE
+      #+LATEX: \linespread{1.2}
+   2. Read a list of =k=-tuples. Format a =k=-tuple of items as a line
+      of =k= items, and the list as a sequence of lines, in the input
+      file, as illustrated below. Read the list with a loop. In each iteration, let =scan()=
+      read =k= items from the file.
+      #+LATEX: \linespread{1}
+      #+BEGIN_EXAMPLE
+      10 20 30
+      30 40 50
+      60 70 90
+      #+END_EXAMPLE
+      #+LATEX: \linespread{1.2}
+   3. Read a list of lists. Format a simple list as a line of
+      items. Format list of lists as a sequence of lines, in the input
+      file, as illustrated below.
+      #+LATEX: \linespread{1}
+      #+BEGIN_EXAMPLE
+      10 20 30 40 50
+      30 40 50
+      60 70 90 50 60 70
+      #+END_EXAMPLE
+      #+LATEX: \linespread{1}
+      Read each line into a variable =line= and parse the line into integers.
+      #+BEGIN_EXAMPLE
+      for (i = 0; sscanf(line, "%d%n", &a[i], &nbytes) == 1; i++)
+         line += nbytes;
+      #+END_EXAMPLE
+      #+LATEX: \linespread{1.2}
+4. Print a subarray. Write a function =print_array(a, low, high)= that
+   prints the subarray =a[low:high]=, that is, the items of array =a=
+   from =low= to =high=. =low= and =high= are called the /lower bound/
+   and /upper bound/ of the subarray. We follow the convention of
+   upper bound excluded. That is, \hfill (/visitor/)
+   #+BEGIN_EXAMPLE
+   a[l:h] = a[l], a[l+1], ..., a[h-1]
+   #+END_EXAMPLE
+   Note that =a[h]= is not a part of =a[l:h]=.
+7. *Linear search*: \hfill (/search/)
