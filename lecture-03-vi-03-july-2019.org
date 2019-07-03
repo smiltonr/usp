@@ -1,0 +1,190 @@
+#+TITLE: UNIX AND SHELL PROGRAMMING
+#+AUTHOR: S Milton Rajendram
+#+DATE: 27 June 2019
+
+#+LaTeX_HEADER: \usepackage{palatino}
+
+* Filesystem
+  - Filesystem is a directory tree
+
+* Directories (Folders)
+  - root (/)
+  - home (~)
+  - working (current) (.)
+  - parent (..)
+
+  Pathnames
+  - Absolute pathname (starts with / or ~)
+    - w.r.t. to the root directory
+  - Relative pathname (starts with . or name)
+    - w.r.t. to the current directory
+
+* Operations on directories
+** =pwd= (print working directory)
+** =ls= (list directory)
+** =mkdir= (make directory)
+** =rmdir= (remove directory)
+** =cd= (change directory)
+
+* Operations on files
+** =touch= (update modified time)
+** =cat filename= (con\texttt{cat}, display file contents)
+   - =command < filename= \\
+     =filename= acts like =stdin=
+   - =command > filename= \\
+     =filename= acts like =stdout=
+   - =cat= reads from =stdin= and writes to =stdout=
+   - =cat filename= \\
+     reads =filename= and writes to =stdout=
+** =more=
+
+* Operations on files/directories
+** =rm= (remove)
+   =rm filename=
+   - =rm filenames=
+   |--------+-------------|
+   | option | meaning     |
+   |--------+-------------|
+   | =-i=   | interactive |
+   | =-f=   | force       |
+   | =-r=   | recursive   |
+   | =-v=   | verbose     |
+   |--------+-------------|
+** =cp= (copy)
+   #+BEGIN_EXAMPLE
+   cp options source destination
+   #+END_EXAMPLE
+   Source, destination
+   |-----------+-------------+--------|
+   | source    | destination | remark |
+   |-----------+-------------+--------|
+   | file      | file        |        |
+   | file      | directory   |        |
+   | files     | directory   |        |
+   | directory | directory   | =-r=   |
+   |-----------+-------------+--------|
+   Options
+   |--------+-------------|
+   | option | meaning     |
+   |--------+-------------|
+   | =-v=   | verbose     |
+   | =-i=   | interactive |
+   | =-r=   | recursive   |
+   | =-p=   | permissions |
+   |--------+-------------|
+
+** =mv= (move, rename)
+   #+BEGIN_EXAMPLE
+   mv options source destination
+   #+END_EXAMPLE
+   Source, destination
+   |-----------+-------------|
+   | source    | destination |
+   |-----------+-------------|
+   | file      | file        |
+   | files     | directory   |
+   | directory | directory   |
+   |-----------+-------------|
+   Options
+   |--------+--------------------------|
+   | option | meaning                  |
+   |--------+--------------------------|
+   | =-i=   | interactive              |
+   | =-f=   | force                    |
+   | =-t=   | destination is directory |
+   | =-u=   | update                   |
+   |--------+--------------------------|
+** =ln= (link)
+   =ln source destination= \\
+   - Creates a link =destination= to =source=
+   - Source(destination) may be file or directory
+   - Hard link: a reference to the source file
+   - Soft link: a name to the source file
+
+* Editor (=vi=)
+  - Command mode
+  - Text mode
+  - =vi filename=
+
+** Navigate
+  |---------+---------------------------------------|
+  | command | action                                |
+  |---------+---------------------------------------|
+  | =h=     | left                                  |
+  | =l=     | right                                 |
+  | =k=     | up                                    |
+  | =j=     | down                                  |
+  | Enter   | start of next line                    |
+  | =w=     | word right                            |
+  | =b=     | word left (back)                      |
+  | =e=     | word right end (end)                  |
+  | =C-y=   | scoll up one line                     |
+  | =C-e=   | scoll down one line                |
+  | =C-u=   | scroll up half a screen               |
+  | =C-d=   | scroll down half a screen             |
+  | =C-b=   | scroll up full screen                 |
+  | =C-f=   | scroll down full screen               |
+  | =0=     | start of line                         |
+  | =$=     | end of line                           |
+  | =^=     | first non-blank character of the line |
+  | =:0=    | start of file                         |
+  | =G=     | end of file                           |
+  |---------+---------------------------------------|
+** Insert
+  |---------+----------------------------------------------|
+  | command | action                                       |
+  |---------+----------------------------------------------|
+  | =i=     | insert text before current character         |
+  | =I=     | insert text at the start of the current line |
+  | =a=     | insert text after current character          |
+  | =A=     | insert text at the end of the current line   |
+  | =o=     | open a line below the current line           |
+  | =O=     | open a line above the current line           |
+  | =cw=    | change till end of the current word          |
+  | =C=     | change till the end of the current line      |
+  |---------+----------------------------------------------|
+** Delete
+  |----------+-----------------------------------------------|
+  | command  | action                                        |
+  |----------+-----------------------------------------------|
+  | =x=      | delete character                              |
+  | =X=      | delete character left                         |
+  | /n/ ~x~  | delete n characters                           |
+  | =dw=     | delete word                                   |
+  | =dd=     | delete current line                           |
+  | /n/ ~dd~ | delete n lines                                |
+  | =D=      | delete till the end of the current line       |
+  | =d^=     | delete till thes start of the current line    |
+  | =J=      | join next line to the end of the current line |
+  | =u=      | undo the last change                          |
+  | =U=      | undo all changes on current line              |
+  |----------+-----------------------------------------------|
+** Cut, copy, paste
+  |------------+-----------------------------------------|
+  | command    | action                                  |
+  |------------+-----------------------------------------|
+  | =.=        | repeat the last command (redo)          |
+  | =yy=       | copy current line                       |
+  | /n/ ~yy~   | copy /n/ lines                          |
+  | =p=        | paste the copied text after the cursor  |
+  | =P=        | paste the copied text before the cursor |
+  | =/pattern= | search for pattern                      |
+  | =n=        | repeat the last search forward          |
+  | =N=        | repeat the last search backward         |
+  |------------+-----------------------------------------|
+** Other commads
+  |-----------+----------------------------|
+  | command   | action                     |
+  |-----------+----------------------------|
+  | =:w=      | write file (save file)     |
+  | =:q=      | quit editor                |
+  | =:q!=     | quit without saving        |
+  | =:wq=     | write file and quit editor |
+  | =:set nu= | set line numbers           |
+  | =:n=      | go to line number =n=      |
+  |-----------+----------------------------|
+
+* COMMENT Extra
+#+BEGIN_SRC sh :var filename=(buffer-file-name) :exports both
+wc $filename
+#+END_SRC
