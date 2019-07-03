@@ -1,0 +1,45 @@
+#+TITLE: UNIX AND SHELL PROGRAMMING
+#+AUTHOR: S Milton Rajendram
+#+DATE: 26 June 2019
+
+#+LaTeX_HEADER: \usepackage{palatino}
+
+* Books
+  1) Brian W Kernighan, Rob Pike, ``The UNIX Programming
+     Environment'', Prentice-Hall India, 1984
+  2) Shelley Powers, Jerry Peek, Tim O'Reilly, and Mike Loukides,
+     ``UNIX Power Tools'', Third Edition, O'Reilly, 2002
+  3) Eric Steven Raymond, ``The Art of Unix Programming'',
+     Addison-Wesley, 2003 
+
+* Operating System Interface
+  - User interface
+  - Application Programming Interface
+
+* Interfaces
+  - Command-line interface
+  - Screen interface
+  - Graphical User Interface
+
+* Command-line Interpreter (Shell)
+
+* Graphical User Interface vs Command-line Interface
+
+* Programmable Shell
+  - Scripting
+
+* History of UNIX
+  - 1970s, AT & T Bell Laboratories (Bell Labs)
+  - Ken Thomson, Dennis Ritchie, and others
+  
+* Success
+  - Written in C -- portable
+  - Productive programming environment
+  - Relationships among programs
+  - UNIX programming philosophy
+
+* Features
+g  - Cohesiveness
+  - Modularity
+  - Textuality
+

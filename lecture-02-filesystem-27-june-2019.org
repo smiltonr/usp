@@ -1,0 +1,244 @@
+#+TITLE: UNIX AND SHELL PROGRAMMING
+#+AUTHOR: S Milton Rajendram
+#+DATE: 27 June 2019
+
+#+LaTeX_HEADER: \usepackage{palatino}
+
+* Operating System Interface
+  - Users: User interface
+  - Programmers: Application Programming Interface
+
+* OS Interfaces
+  - Command-line interface (CLI)
+  - Graphical User Interface (GUI)
+  - Screen interface
+
+* Examples
+  - bc
+  - date
+  - cal
+
+* Terminal
+  - Terminal emulator in graphical desktops
+  - Login in a terminal or launch a terminal emulator
+  - Shell
+  - Interactive program
+    - Waits to read a command from the user (prompt)
+    - Executes the command
+    - May print on stdout (screen)
+    - REPL (Read-Evaluate-Print Loop)
+
+* Command line
+  =command options arguments=
+  - command
+  - options
+  - arguments
+
+* Filenames
+  - Case sensitive
+  - Advice: Do not use space, use - or _ instead.
+  - Hidden files
+
+  Wildcards
+  | =*=     | match any string of zero or more characters in filenames |
+  | =?=     | match any single character in filenames                  |
+  | =[ccc]= | match any single character from ccc in filenames;        |
+  |         | ranges like 0 - 9 or a - z are legal                     |
+
+* File types
+  - Regular files
+  - Directories
+  - Character special files
+  - Block special files
+  - Symbolic link files
+  - FIFO files
+  - Socket
+
+* Regular files
+  - Sequence of bytes
+  - No structure or meaning imposed by the OS
+  - Depends on the program that interprets it
+  
+  Two types:
+  - Text files: bytes are printable characters
+  - Binary files: data or executable code
+
+* Filesystem
+  - Filesystem has a root directory
+  - A directory is a container for files and other directories (subdirectories)
+  - In a directory, we can create files and/or directories
+  - Filesystem has tree structure (hierarchical structure) of
+    directories: /directory tree/
+  - Files are the leaves 
+
+* Directories (Folders)
+  - root (/)
+  - home (~)
+  - working (current) (.)
+  - parent (..)
+
+  Pathnames
+  - Absolute pathname (starts with / or ~)
+    - w.r.t. to the root directory
+  - Relative pathname (starts with . or name)
+    - w.r.t. to the current directory
+
+* File system implementation
+  #+CAPTION: Disk format
+  [[./disk-format.pdf]]
+  - Disk is formatted -- filesystem
+  - Boot block, super block, inode block, data blocks
+    - Boot block: at the beginning of the disk, stores /boot loader/
+    - Super block: information abou the filesystem -- size, number of
+      free blocks, etc.
+    - Inode block:
+      - one inode for each file
+      - information about the files:  owener, permission, filetype, address on disk
+    - Data block: physical files
+  - Directory
+    - File
+    - Filename-inode entries of files in the directory
+    - 
+* Operations on directories
+** =pwd= (print working directory)
+   - working directory or current directory
+** =ls= (list directory)
+   #+BEGIN_EXAMPLE
+   ls options directory
+   #+END_EXAMPLE
+   
+   Options
+   |--------+----------------------|
+   | option | meaning              |
+   |--------+----------------------|
+   | -a     | all (include hidden) |
+   | -l     | long format          |
+   | -r     | reverse              |
+   | -t     | time  order          |
+   | -p     | directories          |
+   | -R     | recursive            |
+   | -d     | working directory    |
+   | -c     | creation time        |
+   | -i     | inode                |
+   |--------+----------------------|
+
+   Long format (-l)
+   - File type
+   - Permissios
+   - Links
+   - User
+   - Group
+   - Size
+   - Time (Last modified)
+   - Filename
+
+** =mkdir= (make directory)
+   #+BEGIN_EXAMPLE
+   mkdir options directory
+   #+END_EXAMPLE
+
+   Options
+   |--------+---------|
+   | option | meaning |
+   |--------+---------|
+   | -p     | parents |
+   | -m     | mode    |
+   |--------+---------|
+
+** =rmdir= (remove directory)
+   #+BEGIN_EXAMPLE
+   rmdir directory
+   #+END_EXAMPLE
+   =directory= should be empty
+
+** =cd= (change directory)
+   #+BEGIN_EXAMPLE
+   cd 
+   cd destination
+   #+END_EXAMPLE
+
+* Operations on files
+** Create file
+   =touch filename=
+
+** Edit file
+   =e filename=
+
+** Display file
+   =cat=, =more=, =less=
+** =cat filename= (con\texttt{cat})
+   - Display the file contents
+   - =cat= reads from =stdin= and writes to =stdout=
+   - =cat filename= \\
+     reads =filename= and writes to =stdout=
+   - =command < filename= \\
+     =filename= acts like =stdin=
+   - =command > filename= \\
+     =filename= acts like =stdout=
+
+** =more=
+   - =more filename=
+   - Display the file contents pagewise
+
+* Operations on files/directories
+** =rm= (remove)
+   =rm filename=
+   - =rm filenames=
+   |--------+-------------|
+   | option | meaning     |
+   |--------+-------------|
+   | =-i=   | interactive |
+   | =-f=   | force       |
+   | =-r=   | recursive   |
+   | =-v=   | verbose     |
+   |--------+-------------|
+** =cp= (copy)
+   #+BEGIN_EXAMPLE
+   cp options source destination
+   #+END_EXAMPLE
+   Source, destination
+   |-----------+-------------+--------|
+   | source    | destination | remark |
+   |-----------+-------------+--------|
+   | file      | file        |        |
+   | file      | directory   |        |
+   | files     | directory   |        |
+   | directory | directory   | =-r=   |
+   |-----------+-------------+--------|
+   Options
+   |--------+-------------|
+   | option | meaning     |
+   |--------+-------------|
+   | =-v=   | verbose     |
+   | =-i=   | interactive |
+   | =-r=   | recursive   |
+   | =-p=   | permissions |
+   |--------+-------------|
+
+** =mv= (move, rename)
+   #+BEGIN_EXAMPLE
+   mv options source destination
+   #+END_EXAMPLE
+   Source, destination
+   |-----------+-------------|
+   | source    | destination |
+   |-----------+-------------|
+   | file      | file        |
+   | files     | directory   |
+   | directory | directory   |
+   |-----------+-------------|
+   Options
+   |--------+--------------------------|
+   | option | meaning                  |
+   |--------+--------------------------|
+   | =-i=   | interactive              |
+   | =-f=   | force                    |
+   | =-t=   | destination is directory |
+   | =-u=   | update                   |
+   |--------+--------------------------|
+** =ln= (link)
+   =ln source destination= \\
+   - Creates a link =destination= to =source=
+   - Source(destination) may be file or directory
+   - Hard link: a reference to the source file
+   - Soft link: a name to the source file
