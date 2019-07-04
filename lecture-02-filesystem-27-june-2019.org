@@ -237,8 +237,55 @@
    | =-u=   | update                   |
    |--------+--------------------------|
 ** =ln= (link)
-   =ln source destination= \\
-   - Creates a link =destination= to =source=
-   - Source(destination) may be file or directory
-   - Hard link: a reference to the source file
-   - Soft link: a name to the source file
+   =ln oldname newname= \\
+   - Creates a link (alias) =newname= to =oldname= (link to target)
+   - =oldname= (=newname=) may be file or directory
+   - Equal status
+   - Create/remove links and link count
+*** Hard links
+    - Same inode (identical inode and identical contents, only the
+      directory entry differs)
+    - Not for directories or files in diffrent filesystem (partitions, devices)
+*** Soft links (Symbolic links)
+    - New file (new inode, new contents, new directory entry)
+    - File content = pathname of the target file
+    - Links differ from files
+    - Absolute pathname vs *relative pathname* for targets (old files)
+    - Targets can be directories or files in different file systems.
+    - Broken links
+** =find= (find files)
+   =find pathname criteria action=
+   - Find file or directory based on criteria
+     - Criteria
+       #+BEGIN_EXAMPLE
+       find directory -name filename -print
+       find directory -type d -mtime -30
+       find ~ -type f -name "*.jpg" -size +1M
+       #+END_EXAMPLE
+       |--------------+-------------------------------------------------------|
+       | criteria     | matches                                               |
+       |--------------+-------------------------------------------------------|
+       | -name file   | filenames                                             |
+       | -type c      | file type: f, d, l, b, c, p, s                        |
+       | -size {+-}n  | filesize: b, c, w, k, M, G                            |
+       | -mtime n     | modified exactly n days ago                           |
+       | -mtime +n    | modified more than n days ago                         |
+       | -mtime -n    | modified less than n days ago                         |
+       | -atime n     | accessed n days ago                                   |
+       | -ctime n     | content or attributes changed n days ago              |
+       | -newer file  | newer in content (modified more recently) than file   |
+       | -anewer file | accessed more recently than file                      |
+       | -cnewer      | content or attributes changed more recently than file |
+       |--------------+-------------------------------------------------------|
+     - Actions
+       #+BEGIN_EXAMPLE
+       find directory -type f -mtime -30 -exec cp {} backup \; 
+       #+END_EXAMPLE
+       |---------+-------------------------|
+       | action  | action                  |
+       |---------+-------------------------|
+       | -print  | print matching file     |
+       | -delete | delete matching file    |
+       | -ls     | ls -dils matching files |
+       | -quit   | quit searching          |
+       |---------+-------------------------|
