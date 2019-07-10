@@ -1,0 +1,137 @@
+#+TITLE: UNIX AND SHELL PROGRAMMING
+#+SUBTITLE: Security and Permissions
+#+AUTHOR: S Milton Rajendram
+#+DATE: 10 July 2019
+
+#+LaTeX_HEADER: \usepackage{palatino}
+
+* Users, Groups, Others
+  - User (owner)
+    - username, user id (uid)
+  - Group
+    - every user belongs to at least one group
+    - can belong to multiple groups
+    - groupname, group id (gid)
+    - =groups=
+  - Others (world)
+
+* Security levels
+  - 3 levels of security
+  - System, directory, file
+  - System security:
+    - login with username and password
+    - =/etc/password
+      - username:password:uid:gid:user information:home directory:loginshell
+  - Permissions = 8-bit code
+    #+BEGIN_EXAMPLE
+    user group others
+    rwx  rwx   rwx
+    #+END_EXAMPLE
+  - File permissions
+    - read
+      - read, copy
+    - write
+      - change, delete
+    - execute
+      - executable program, script
+      - benign programs: execute for all users
+  - Directory permissions
+    - read
+      - list entries (files) and their attributes
+      - general rule: read for all, except private directories
+    - write
+      - create or delete entries (files)
+      - copy / move entries (files) from and to
+      - general rule: no write for *others*, except *group*
+    - execute
+      - reference entries (read file)
+      - access (navigate to) the directory
+      - need execute permission for all directories in a pathname to
+        reference an entry
+      - read and execute together
+
+* Changing permissions
+  - Symbolic codes
+    - who
+      | user   | u |
+      | group  | g |
+      | others | o |
+      | all    | a |
+    - permission
+      | read    | r |
+      | write   | w |
+      | execute | x |
+    - operation
+      | = | set permissions    |
+      | + | add permissions    |
+      | - | remove permissions |
+    - Examples
+      - =chmod u=rwx,g+w,o-w memo.txt=
+      - =chmod u=rwx file=
+      - =chmod g=rx file=
+      - =chmod g+x file=
+      - =chmod a+r file=
+      - =chmod o-w file=
+  - Octal codes
+    |-----+-----+-----+-----------|
+    |   u |   g |   o |           |
+    | rwx | rwx | rwx |           |
+    |-----+-----+-----+-----------|
+    | 111 | 111 | 111 | chmod 777 |
+    | 111 | 101 | 100 | chmod 754 |
+    | 110 | 110 | 100 | chmod 664 |
+    | 111 | 001 | 001 | chmod 711 |
+    |-----+-----+-----+-----------|
+    - can only change all permission bits
+    - cannot set or reset permission bits selectively
+  - =chmod -R direcory=
+    - recursive
+    - use symbolic code (change permission bits selectively)
+
+* User mask
+  - Default permission
+    | directory | 111 111 111 = 777 |
+    | file      | 110 110 110 = 666 |
+  - mask = 9 bit, bits to be reset
+    | mask | directory | file |
+    |      |       111 |  110 |
+    |------+-----------+------|
+    |  000 |       111 |  110 |
+    |  001 |       110 |  110 |
+    |  010 |       101 |  100 |
+    |  011 |       100 |  100 |
+    |  100 |       011 |  010 |
+    |  101 |       010 |  010 |
+    |  110 |       001 |  000 |
+    |  111 |       000 |  000 |
+  - Examples
+    |-------------------------------+-------+-------------+-----+-------------+-----|
+    | mask                          |       | directory   |     | file        |     |
+    |-------------------------------+-------+-------------+-----+-------------+-----|
+    | binary                        | octal | 111 111 111 | 777 | 110 110 110 | 666 |
+    |-------------------------------+-------+-------------+-----+-------------+-----|
+    | 000 000 000 (public)          |   000 | 111 111 111 | 777 | 110 110 110 | 666 |
+    | 000 001 001 (public)          |   011 | 111 110 110 | 766 | 110 110 110 | 666 |
+    | 000 010 010 (write protected) |   022 | 111 101 101 | 755 | 110 100 100 | 644 |
+    | 000 000 111 (project private) |   003 | 111 111 000 | 770 | 110 110 000 | 660 |
+    | 000 111 111 (private)         |   077 | 111 000 000 | 700 | 110 000 000 | 600 |
+    |-------------------------------+-------+-------------+-----+-------------+-----|
+  - =umask=\\
+    =umask mask=
+
+* Changing ownership and group
+  - =chown= (change owner)
+    =chown username= or =chown uid=\\
+    - =chown username:groupname file=
+    - Only the current owner or superuser can =chown= a file.
+    - =chown -R directory=
+  - =chgrp= (change group)
+    =chgrp groupname= or =chgrp gid=
+
+* Summary
+  | chmod files | set or change permissions of files/dirs |
+  | chown files | change owner (and group) of files/dirs  |
+  | chgrp files | change group of files/dirs              |
+  | groups      | display user's groups                   |
+  | umask       | set or display default mask             |
+  
