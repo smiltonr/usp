@@ -128,10 +128,13 @@
   - =chgrp= (change group)
     =chgrp groupname= or =chgrp gid=
 
+* Superuser
+  - root
+  - all permissions over the filesystem
+
 * Summary
   | chmod files | set or change permissions of files/dirs |
   | chown files | change owner (and group) of files/dirs  |
   | chgrp files | change group of files/dirs              |
   | groups      | display user's groups                   |
   | umask       | set or display default mask             |
-  
