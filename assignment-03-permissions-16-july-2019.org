@@ -1,0 +1,67 @@
+#+TITLE:  UNIX and Shell Programming
+#+AUTHOR: Assignment 3: Permissions
+#+DATE: 16 July 2019
+
+# #+AUTHOR: S Milton Rajendram
+
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+
+* Exercise 1
+1. Launch a terminal.
+2. Check which group or groups you belong to.
+3. Use the =umask= command to set the default permission to
+   =700=. What is the default permission for files after this command?
+4. Create a directory named =chapter4= under your home directory.
+5. Check the default permission of this directory. Is it =700=?
+6. Create a directory under the =chapter4= directory (without moving
+   from your home directory) and name it =session1=.
+7. Check the permission of this directory. Is it =700=?
+8. Move to the =session1= directory.
+9. Create a file named =hw41= under this directory. Save this file.
+10. Check the permission of this file. Is it =700= or =600=? Why?
+    Explain the difference between the permissions for files and
+    directories.
+11. Do users in your group have any access to this file? Do other
+    users (outside of your group) have any access to this file? 
+12. Change the permissions to allow users in your group only to copy
+    this file to their own directories. Is there a need to change
+    the permission of any directories? If yes, make  necessary changes.
+13. Let a user in your group copy this file into her home
+    directory. Was the copy successful? If not, find the reason and
+    take the appropriate action(s) to correct it. Then try again with
+    the other user in your group.
+14. Quit the terminal. 
+
+* Exercise 2
+1. Launch a terminal.
+2. Check which group or groups you belong to.
+3. Check your default mask.
+4. Create a d1rectory called =garbage= under your home directory.
+5. Check the permission of this directory. Make a note of it.
+6. Change your default mask so that the default permission is
+   =664=. What is the default permission for directories after you
+   make this change?
+7. Check the permission for the =garbage= directory. Has it been
+   changed after setting the default mask? Why or why not?
+8. Delete this directory.
+9. Create a directory called =session2= under the =chapter4=
+   directory.
+10. Check the permission of this directory and make a note of it.
+11. Remove the =x= permission for the user from this directory.
+12. Move to the =session2= directory. You should have a problem. Do
+    you know what the problem is? Fix the problem.
+13. Create a file named =hw42= under this directory. Save this file.
+14. Check the permissions of this file. Can users in your group copy
+    this file? Can they change this file? Can users outside your group
+    copy this file? Can they change this file? Is this file
+    executable?
+15. Change the permissions of this file so that every user can read,
+    modify, but not execute this file.
+17. Quit the terminal.

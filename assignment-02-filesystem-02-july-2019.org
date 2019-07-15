@@ -1,0 +1,107 @@
+#+TITLE:  UNIX and Shell Programming
+#+AUTHOR: Assignment 2: Filesystem
+#+DATE: 2 July 2019
+
+# #+AUTHOR: S Milton Rajendram
+
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+
+* Exercise 1
+1. Launch a terminal.
+2. Create three directories named =letters, reports= and =assignment=
+   under your home directory.
+3. Move to directory =letters=.
+4. Create two directories named =friendly= and =formal= under the
+   =letters= directory.
+5. Move to directory =reports= using only one command (directly from
+   =letters=).
+6. Create three directories called =personal=, =business=, and
+   =school= under the directory =reports= (use only one command).
+7. Create a directory called =UNIX= under the =assignments= directory.
+   The directories in this step should be created without moving from
+   the =reports= directory.
+8. Move to your home directory.
+9. Recursively list all of the directories you created and draw the
+   directory structure on paper.
+10. Quit the terminal.
+
+* Exercise 2
+1. Launch a terminal.
+2. Recursivcly list the directories under your home directory (the
+   ones created in Exercise 1).
+3. Move to the =UNIX= directory.
+4. Check your current directory.
+5. Using =vi=, create a file named =hw4= that contains some text.
+6. Save the file (it should be saved under the =UNIX= directory).
+7. Move to your home directory
+8. Print the content of =hw4= from your home directory.
+9. Make a copy of =hw4= and call it =hw4.bk=. Store it under the same
+   directory where =hw4= is stored.
+10. From your home directory, check to see if both files (=hw4= and
+    =hw4.bk=) exist.
+11. Move to the =UNIX= directory.
+12. Check your current working directory.
+13. Make a hard link to the =hw4= file. The link should be under the
+    =UNIX= subdirectory and be called =hw4HL=.
+14. Make a soft link to =hw4= called =hw4SL= and store it under the
+    =UNIX= directory.
+15. Check the inode of =hw4, hw4.bk, hw4HL=, and =hw4SL=. Are all the
+    same? Are all different? Explain how you determined the answer.
+16. Use =ls= command to find the file types of =hw4, hw4.bk, hw4HL= and
+    =hw4SL=. Explain your observation.
+17. Quit the terminal.
+
+* Exercise 3
+1. Launch a terminal.
+2. Create a backup directory in your home directory called =backups=.
+3. Use the =find= command to find the pathnames of all of the files
+   (=hw4, hw4.bk, hw4HL, hw4SL=) that you created in Exercise 2 (read
+   from the Internet about how to use =find=). All of them should be
+   found using only one find command. The command must also copy all
+   of them to the =backups= directory.
+   #+BEGIN_SRC 
+   find ~ -name hw4* -exec cp {} backups\;
+   #+END_SRC
+4. Check the number of links and inode number of (=hw4, hw4.bk, hw4HL,
+   hw4SL=). Make note of the results.
+5. Delete the original =hw4= file without moving from your home
+   directory.
+6. Check the existence of =hw4, hw4.bk, hw4HL, hw4SL=.
+7. Check the contents of =hw4, hw4.bk, hw4HL, hw4SL=.
+8. Restore =hw4= by making a copy of =hw4.bk=.
+9. You may have noticed that your soft link (=hw4SL=) contains
+   garbage. Delete this file.
+10. Make a soft link to =hw4= and save it as =hw4SL= under the same
+    directory as it was.
+11. List recursively all of your files and directories to confirm all
+    operations.
+12. Draw the directory structure of your home directory.
+13. Quit the terminal.
+
+* Exercise 4
+1. Launch a terminal.
+2. Use wildcards to display all of the files you have created under the
+   =HWs= without moving from your home directory.
+3. Rename =hw4.bk= to =hw4.bak=
+4. Create a short friendly letter, called =friend.1= using =vi= and
+   store it under the =friendly= directory.
+5. Create a short formal letter, called =formal.1= using =vi= and
+   store it under the formal directory. Give a subject to =formal.1=
+   letter.
+6. Copy the file =formal.1= and call the new copy =formal.2=
+7. Change only the subject of =formal.2= using =vi= and save it.
+8. Using wildcards, print the contents of =formal.1= and =formal.2=
+9. Make a directory called =business= under your home directory.
+10. Move the formal directory (with all of its contents) under the
+    =business= directory.
+11. Make a recursive list of your directory structure.
+12. Draw the new directory structure on paper.
+13. Quit the terminal.
+
