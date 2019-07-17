@@ -81,8 +81,8 @@
 ** Pipe
    - =cmd1 | cmd2=
    - =cmd1= writes to =stdout=, and =cmd2= reads from =stdin=
-   - =stdout= of =cmd1= is the =stdin= of =cmd2=
    - =stdout= of =cmd1= becomes =stdin= of =cmd2=
+   - =cmd1= and =cmd2= concurrent
 
 ** Sequence
    - Newline and =;= are command terminators
