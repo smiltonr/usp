@@ -1,0 +1,209 @@
+#+TITLE: UNIX AND SHELL PROGRAMMING
+#+SUBTITLE: Introduction to Shell
+#+AUTHOR: S Milton Rajendram
+#+DATE: 11 July 2019
+
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+PROPERTY: header-args :results output verbatim :exports both :shell :session *shell*
+#+option: toc :nil
+
+* Shells
+  - sh (Bourne Shell)
+  - ksh (Korn Shell)
+  - csh (C Shell)
+  - bash (Bourne Again Shell)
+** Check login shell
+  #+BEGIN_SRC bash
+  echo $SHELL
+  #+END_SRC
+** Check current shell
+   #+BEGIN_SRC bash
+   echo $0
+   #+END_SRC
+
+* Redirection
+  - 3 open files (streams)
+    | file descriptor | stream          | device           |
+    |-----------------+-----------------+------------------|
+    |               0 | standard input  | keyboard         |
+    |               1 | standard output | screen (monitor) |
+    |               2 | standard error  | screen           |
+
+  - Input redirection, output redirection, error redirection
+    #+attr_latex: :align p{.2\textwidth}p{.3\textwidth}p{.5\textwidth}
+    | Stream     | Command              |                                                    |
+    |------------+----------------------+----------------------------------------------------|
+    | Input      | =cmd < file=         | take standard input from file                      |
+    |            | =cmd 0< file=        |                                                    |
+    |------------+----------------------+----------------------------------------------------|
+    | Output     | =cmd > file=         | direct standard output to file                     |
+    |            | =cmd 1> file=        |                                                    |
+    |            | =cmd >> file=        | append standard output to file                     |
+    |            | =cmd 1>> file=       |                                                    |
+    |------------+----------------------+----------------------------------------------------|
+    | Error      | =cmd 2> file=        | direct standard error to file                      |
+    |            | =cmd 2>> file=       | append standard error to file                      |
+    |------------+----------------------+----------------------------------------------------|
+    | Outout, Error | =cmd > file1 2> file2= | direct standard  output to =file1=, standard error to =file2= |
+    |            | =cmd 1> file1 2> file2= |                                                    |
+    |            | =cmd >> file1 2>> file2= | append standard  output to =file1=, standard error to =file2= |
+    |            | =cmd 1>> file1 2>> file2= |                                                    |
+    |------------+----------------------+----------------------------------------------------|
+    | Output, Error | =cmd > file 2>&1=    | merge standard output and standard error, and direct to =file= |
+    |            | =cmd 1> file 2>&1=   |                                                    |
+    |            | =cmd &> file=        |                                                    |
+    |            | =cmd &>> file=       |                                                    |
+    |------------+----------------------+----------------------------------------------------|
+    | =n=        | =n> file=            | direct output from file descriptor =n= to file     |
+    |            | =n>> file=           | append output from file descriptor =n= to file     |
+    |------------+----------------------+----------------------------------------------------|
+    | =n, m=     | =n>&m=               | merge output from file descriptor =n= with file descriptor =m= |
+    |            | =n<&m=               | merge input from file descriptor =n= with file descriptor =m= |
+
+
+* COMMENT table
+    | => file=         | direct standard output to file                                 |
+    | =>> file=        | append standard output to file                                 |
+    | =< file=         | take standard input from file                                  |
+    | =cmd1 pipe cmd2= | connect standard output of =cmd1= to input of =cmd2=           |
+    | =n> file=        | direct output from file descriptor =n= to file                 |
+    | =n>> file=       | append output from file descriptor =n= to file                 |
+    | =n>&m=           | merge output from file descriptor =n= with file descriptor =m= |
+    | =n<&m=           | merge input from file descriptor =n= with file descriptor =m=  |
+    | =<<s=            | here document: take standard input until next =s= at           |
+    |                  | beginning of a line; substitute for $, `...`, and \            |
+    | =<<\s=           | here document with no substitution                             |
+    | =<<'s'=          | here document with no substitution                             |
+
+* Composition
+** Pipe
+   - =cmd1 | cmd2=
+   - =cmd1= writes to =stdout=, and =cmd2= reads from =stdin=
+   - =stdout= of =cmd1= is the =stdin= of =cmd2=
+   - =stdout= of =cmd1= becomes =stdin= of =cmd2=
+
+** Sequence
+   - Newline and =;= are command terminators
+     #+BEGIN_SRC shell
+     date;
+     #+END_SRC
+
+     #+BEGIN_SRC shell
+     date; who
+     #+END_SRC
+
+   - =cmd1; cmd2=
+   - Execute =cmd1=. When =cmd1= has finished execution, execute =cmd2=
+   - Sequentially execute =cmd1= and =cmd2=
+   - =cmd1= and =cmd2= need not be related.
+** Group
+   - Example
+   #+BEGIN_SRC shell
+   date; who | wc
+   #+END_SRC
+   - Example
+     #+BEGIN_SRC shell
+     (date; who) | wc
+     #+END_SRC
+
+   - =(cmd1; cmd2)=
+   - Treat it as a single command -- sequentially execute =cmd1= and
+     =cmd2=
+** =tee=
+  - Example
+     #+BEGIN_SRC shell
+     (date; who) | tee save.txt | wc
+     #+END_SRC
+
+     #+BEGIN_SRC shell
+     cat save.txt
+     #+END_SRC
+
+  - =tee file=
+  - reads from =stdin= and copies it to =stdout= and =file=
+
+
+** Conditional
+   - =cmd1 && cmd2=
+   - Execute =cmd1=; if it succeeds, execute =cmd2= (if =cmd1= does
+     not execute successfully, =cmd2= is not executed)
+   - =cmd1 || cmd2=
+   - Execute =cmd1=; if it fails, execute =cmd2= (if =cmd1= executes
+     successfully, =cmd2= is not executed)
+
+* Shell Metacharacters
+  - Characters like * that have special properties are known as
+    metacharacters.
+  | =>=            | =cmd > file= direct standard output to file                  |
+  | =>>=           | =cmd >> file= append standard output to file                 |
+  | =<=            | =cmd < file= take standard input from file                   |
+  | =<<str=        | =here= document: standard input follows, up to next str      |
+  |                | on a line by itself                                          |
+  | =*=            | match any string of zero or more characters in filenames     |
+  | =?=            | match any single character in filenames                      |
+  | =[ccc]=        | match any single character from ccc in filenames;            |
+  |                | ranges like 0 - 9 or a - z are legal                         |
+  | =;=            | command terminator: PI ;P2 does P b then P2                  |
+  | =&=            | like ; but doesn't wait for P I to finish                    |
+  | =`...`=        | run command(s) in ...; output replaces `...`                 |
+  | =(...)=        | run command(s) in ... in a sub-shell                         |
+  | 1, 2 = etc     | 0... 9 replaced by arguments to shell file                   |
+  | =$var=         | value of shell variable var                                  |
+  | =${var}=       | value of var; avoids confusion when concatenated with text;  |
+  | =\c=           | \c take character c literally, \newline discarded            |
+  | ='...'=        | take ... literally                                           |
+  | ="..."=        | take ... literally after $, \...' and \ interpreted          |
+  | =#=            | if # starts word, rest of line is a comment (not in 7th Ed.) |
+  | =var=value=    | assign to variable var                                       |
+  | =cmd1 && cmd2= | run cmd1; if successful, run cmd2                            |
+  | =cmd1 cmd2=    | run cmd1; if unsuccessful, run cmd2                          |
+  | =cmd1 cmd2=    | connect standard output of cmd1 to standard input of cmd2    |
+
+
+* Quotes
+  Metacharacters: 
+  #+BEGIN_EXAMPLE
+  > < | & $  
+  #+END_EXAMPLE
+** Backslash
+   - Escape the normal meaning of characters and metacharacters.
+   - Characters
+     | Normal meaning      | Escape | Escaped meaning |
+     |---------------------+--------+-----------------|
+     | =n=                 | =\ n=  | newline         |
+     | =t=                 | =\ t=  | tab             |
+     | =v=                 | =\ v=  | vertical tab    |
+     | =r=                 | =\ r=  | carriage return |
+     | =f=                 | =\ f=  | form feed       |
+     | input redirect      | =\ <=  | =<=             |
+     | output redirect     | =\ >=  | =>=             |
+     | pipe                | =   =  | = =             |
+     | conditional execute | =\ &=  | =&=             |
+     | value of variable   | =\ $=  | =$=             |
+** Double quotes
+   - $ and single quotes are interpreted.
+   - No other character is interpreted.
+** Single quotes
+   - No character is interpreted.
+
+* Variables
+  - Shell variable
+    - Assign a value =val= to a variable =var=
+      =var=val=
+    - Use the value of of =var=
+      =$var=
+   
+* Command substitution
+  - =var=$(cmd)=
+    - Convert =stdout= of =cmd= to string and store it in =var=
+    - Replaces string of white space by a single space.
+  - =var=`cmd`=
+
+* Alias
+  - =alias name=cmd=
+  - List aliases
+    =alias=
+  - Remove alias
+    =unalias name=
