@@ -135,9 +135,9 @@
 * Shell Metacharacters
   - Characters that have special properties
   | >                         | =cmd= > =file= direct standard output to file                |
-  | $>>$                      | =cmd= $>>$ =file= append standard output to file             |
+  | >>                        | =cmd= $>>$ =file= append standard output to file             |
   | =<=                       | =cmd= < =file= take standard input from file                 |
-  | $<<$ =str=                | =here= document: standard input follows, up to next str      |
+  | << =str=                  | =here= document: standard input follows, up to next str      |
   |                           | on a line by itself                                          |
   | =*=                       | match any string of zero or more characters in filenames     |
   | =?=                       | match any single character in filenames                      |
@@ -147,10 +147,10 @@
   | =&=                       | like ; but doesn't wait for P I to finish                    |
   | =`...`=                   | run command(s) in ...; output replaces `...`                 |
   | =(...)=                   | run command(s) in ... in a sub-shell                         |
-  | 1, 2 = etc                | 0... 9 replaced by arguments to shell file                   |
+  | $1, $2, etc               | 0... 9 replaced by arguments to shell file                   |
   | =$var=                    | value of shell variable var                                  |
   | =${var}=                  | value of var; avoids confusion when concatenated with text;  |
-  | =\c=                      | \c take character c literally, \newline discarded            |
+  | =\c=                      | \c take character c literally                                |
   | ='...'=                   | take ... literally                                           |
   | ="..."=                   | take ... literally after $, \...' and \ interpreted          |
   | =#=                       | if # starts word, rest of line is a comment (not in 7th Ed.) |
@@ -171,15 +171,37 @@
      echo line upon line,\nline upon line,\nhere a little,\nthere a little.
      echo -e "line upon line,\nline upon line,\nhere a little,\nthere a little."
      #+END_SRC
+
+     #+RESULTS:
+     : 
+     : line upon line,nline upon line,nhere a little,nthere a little.
+     : line upon line,
+     : line upon line,
+     : here a little,
+     : there a little.
+
      #+BEGIN_SRC bash
      echo -e "reg no\tname\t\tmark\n102\tanonymous\t30"
      #+END_SRC
+
+     #+RESULTS:
+     : reg no	name		mark
+     : 102	anonymous	30
+
      #+BEGIN_SRC bash
      echo -e "Welll\b done."
      #+END_SRC
+
+     #+RESULTS:
+     : Welll done.
+
      #+BEGIN_SRC bash
      echo \< \> \| \& \$
      #+END_SRC
+
+     #+RESULTS:
+     : 
+     : | & $
 
    - Characters
      | Normal meaning      | Escape | Escaped meaning |
@@ -202,15 +224,28 @@
    #+BEGIN_SRC bash
    echo "< > >> * ? [] & | '"
    #+END_SRC
+
+   #+RESULTS:
+   : 
+   : >> * ? [] & | '
+
    #+BEGIN_SRC bash
    greet="Good"
    echo "$greet morning."
    echo "Life is $greet."
    #+END_SRC
 
+   #+RESULTS:
+   : 
+   : Good morning.
+   : Life is Good.
+
    #+BEGIN_SRC bash
    echo "$(date) is a good day."
    #+END_SRC
+
+   #+RESULTS:
+   : Thu Jul 18 09:21:20 IST 2019 is a good day.
 
    #+BEGIN_SRC bash
    cd ~/course/unix/lab/milton
@@ -225,9 +260,19 @@
    character."
    #+END_SRC
 
+   #+RESULTS:
+   : 
+   : > > Suffereing produces
+   : endurance, and
+   : endurance produces
+   : character.
+
    #+BEGIN_SRC bash
    echo "He said, 'Fear not.'"
    #+END_SRC
+
+   #+RESULTS:
+   : He said, 'Fear not.'
 
    #+BEGIN_SRC bash
    echo "Suffereing produces\
