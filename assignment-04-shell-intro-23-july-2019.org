@@ -1,0 +1,179 @@
+#+TITLE:  UNIX and Shell Programming
+#+AUTHOR: Assignment 3: Permissions
+#+DATE: 23 July 2019
+
+# #+AUTHOR: S Milton Rajendram
+
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+
+* Exercise 1
+1. Launch a terminal.
+2. Use the appropriate command to determine your login
+   shell.
+3. Use the =/etc/passwd=  file to verify the result of step 2.
+4. Use the appropriate command to determine your current
+   shell. Is it the same as your login shell?
+5. Create a subshell shell that is not the same shell as
+   your login shell. For example, if your login shell is
+   Bash, create a =ksh= or C shell.
+6. Check the Current shell again. Does it match with your
+   login shell?
+7. Create another shell which is the same type as your login
+   shell.
+8. Check the current shell again. Does it match with
+   previous one?
+9. Exit from the subshell and move to your login shell.
+10. Check the current shell again. Is it the same as the
+    login shell?
+11. Quit the terminal.
+
+ 
+* Exercise 2
+1. Launch a terminal.
+2. Use the =who= command and redirect the result to a file
+   called =file1=. Use the =more= command to see the
+   contents of =file1=.
+3. Use the =date= and =who= commands in sequence (in one
+   line) so that the output of =date= will display on the
+   screen and the output of =who= will be redirected to a
+   file called =file2=. Use the =more= command to check the
+   contents of =file2=. It should be the same as =file1=
+   unless someone logged in or logged off between the =who=
+   commands.
+4. Set vi to be your command—line editor.
+5. Use your command-line editor to recall the line you typed
+   in step 3. Edit the line so that the output of both
+   commands (=date= and =who=) are redirected to a file
+   called =file3=. Use the more command to display the
+   result.
+6. Use the command-line editor to recall the line typed in
+   step 3. Edit the line so that the output of the first
+   command (=date=) is redirected to a file called =file4=,
+   while the result of the =who= command displays on the
+   monitor without changing the relative positions of the
+   =date= and =who= commands. Use the more command to verify
+   the result.
+7. Make a duplicate or =file3= and call it =file3.bak=
+8. Use the command-line editor to recall the line created at
+   step 5. Edit the line so that the word ``date'' will be
+   misspelled as ``bate''. Execute the edited command and
+   append the result to =file3=. Use =more= to compare
+   =file3= and =file3.bak=
+9. Using command-line editing, recall the line created in
+   step 8. Edit it so that the errors also go to =file3=
+   without replacing the files contents. Check the contents
+   of =file3= for verification.
+10. Using command-line editing, recall the line created in
+    step 9. Edit it so that the output goes to =file4= and
+    errors go to =file5=.
+11. Quit the terminal.
+
+ 
+* Exercise 3
+1. Launch a terminal.
+2. Create a subshell.
+3. Set your command-line editor to =vi=.
+4. Create a long list of the current directory and pipe the
+   output to the =pr=.
+5. Edit the line in step 4 so that the result goes to the
+   =pr= and at the same time is saved as a file called
+   =file1= with no output on the monitor (use =tee=, pipe,
+   and redirection).
+6. Edit the line in step 5 so that the result of =ls -l=
+   command be sent to two files =file2= and =file3=.
+7. Set the =noclobber= option.
+8. Repeat the command in step 5. Do you get any error
+   message? If so, write down the error message.
+9. Edit the command line in step 8 to force clobbering of =file1=.
+10. Unset the noclobber.
+11. Use the =ls -l= command and try to send the result to
+    two files, =file3= and =file4=, using the pipe and the
+    =cp= command. What message do you get? Write it
+    down. What are the contents =file3= and =file4=. Why
+    can't =cp= accept its input from a pipe?
+12. Repeat the step 11 but use the =tee= command to solve
+    the problem.
+13. Quit the terminal.
+
+* Exercise 4
+1. Launch a terminal.
+2. Without using an editor, create a one-line file, called
+   =file1=, using the =echo= command (use output
+   redirection). This is one of the ways we can create a
+   short file quickly.
+3. Check the content of =file1= using =more= command.
+4. Now, without using an editor or create two-line file
+   =file2=, using =echo= command. Use double quotes for the
+   argument of the =echo= command. Put the opening quote in
+   the first line and the closing quotes in the second line,
+   but do not close it until the end of the second line. In
+   your own words, explain what you just did and why it
+   works.
+5. Check the contents of =file2 using the =more= command.
+6. Store "UNIX vs. Others" in a variable called =facts=.
+7. Now use the following command:
+   #+BEGIN_EXAMPLE
+   echo "This is a fact. $facts in our life.
+   #+END_EXAMPLE
+  
+   What is printed and why?
+8. Now use the following command:
+   #+BEGIN_EXAMPLE
+   echo "This is a fact.  '$facts' in our life"   
+   #+END_EXAMPLE
+   What is printed and why?
+9. Now use the following command:
+   #+BEGIN_EXAMPLE
+   echo "This is a fact \$facts in our life"   
+   #+END_EXAMPLE
+   What would be printed and why?
+10. Try to use a command to print the following message
+    (including the quotes) using the value of the variable
+    facts: 
+    #+BEGIN_EXAMPLE
+    "This is a fact "UNIX vs. Others" in our life"
+    #+END_EXAMPLE
+11. Quit the terminal.
+ 
+* Exercise 5
+1. Launch a terminal.
+2. Store the word ~"PARENT"~ in a variable called ~first~.
+3. Print the value of the variable ~first~ (using ~echo~
+   command).
+4. Create a subshell shell using the same type of shell as
+   your login shell.
+5. Print the value of the variable ~first~ in this
+   subshell. What was printed? If ~"PARENT"~ was not
+   printed, explain why. Hint: What did the parent export to
+   the subshell when the subshell was created?
+6. Store the word ~"SUBSHELL"~ in a variable called
+   ~second~.
+7. Print the value of the variable ~second~.
+8. Exit from the subshell shell and move to your login shell.
+9. Print the value of ~first~. What was printed? How do you
+   explain this result?
+10. Print the value of ~second~. What was printed? How do
+    you explain this result? 
+11. Quit the terminal.
+
+* Exercise 6
+1. Launch a terminal.
+2. Display the contents of the system startup file (the file
+   name is different in different shells). Try to change
+   some entries in this file.
+3. Display the contents of your personal startup life (the
+   file same is different is different shells}.
+4. Try to change some entries in this file.
+5. Display the contents of system-wide shutdown files (if
+   there is one).
+6. Display the contents of your personal shutdown files (if
+   there is one).
+7. Quit the terminal.
+
