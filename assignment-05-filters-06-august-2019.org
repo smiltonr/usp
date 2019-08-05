@@ -1,0 +1,213 @@
+#+TITLE:  UNIX and Shell Programming
+#+AUTHOR: Assignment 5: Filters
+#+DATE: 5 August 2019
+
+# #+AUTHOR: S Milton Rajendram
+
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+
+* Exercise 1
+1. Launch a terminal.
+2. Use the ~cat~ command to create a file containing the
+   following data. Name it ~Ch6S1F1~. Use tabs to separate
+   the fields.
+   #+BEGIN_EXAMPLE
+   1425    Juan    14.25
+   4321    George  21.11
+   6781    Anna    16.77
+   1451    Ben     21.77
+   2277    Tuan    18.77
+   #+END_EXAMPLE
+3. Use the ~cat~ command to display the file and check for
+   accuracy.
+4. Use the ~vi~ command to correct any errors in the file.
+5. Use the ~sort~ command to sort the file Ch6SlFl according
+   to the first field. Call the sorted file ~Ch6S1F1~ (same
+   name).
+6. Display the file ~Ch6S1F1~.
+7. Use the ~cut~ and ~paste~ commands to swap fields 2 and 3
+   of ~Ch6S1F1~. Call it ~Ch6S1F1~.
+8. Display the file ~Ch6S1F1~.
+9. Quit the terminal.
+
+
+* Exercise 2
+1. Launch a terminal.
+2. Use the ~tail~ command to create and save the following
+   file. Call it ~Ch6S2F1~.
+   #+BEGIN_EXAMPLE
+   PASSES ALL DATA FROM INPUT TO OUTPUT
+   PASSES ONLY SPECIFIED COLUMNS
+   PASSES NUMBER OF SPECIFIED LINES AT BEGINNING
+   COMBINES COLUMNS
+   ARRANGES DATA IN SEQUENCE
+   PASSES NUMBER OF SPECIFIED LINES AT THE END OF DATA
+   TRANSLATES ONE OR MORE CHARACTERS
+   DELETES DUPLICATE LINES
+   COUNTS CHARACTERS} WORDS, OR’LINES
+   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+   #+END_EXAMPLE
+3. Use the ~cat~ command to view its contents.
+4. Use ~vi~ to correct any errors.
+5. Encrypt this file using the following steps:
+   1. Reverse the file line by line (the last line becOmes
+      the first, the line before the last line becomes the
+      second, and so on).
+   2. Call the file ~Ch6S2F1Encr~.
+6. Use the ~cat~ command to view its contents.
+7. Display the file.
+8. Decrypt the file (reverse the encryption steps). Call it
+   ~Ch6S2F1~ (original name).
+9. Display the file ~Ch6S1F1~.
+10. Quit the terminal.
+
+
+* Exercise 3
+1. Launch a terminal.
+2. Use the ~cat~ command to create and save the folloWing
+   file. Call it ~Ch6S3F1~.
+   #+BEGIN_EXAMPLE
+   ALPHABETICAL FACTS.
+   THE FIRST THREE LETTERS ARE ABC.
+   THE MEDIAN LETTERS ARE MN.
+   THE LAST THREE LETTERS ARE XYZ.
+   THE FIRST WORD IN MY DICTIONARY IS AAL.
+   THE LAST WORD IN MY DICTIONARY IS ZYTHUM.
+   THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG.
+   THE LAST LETTER MAY BE PRONOUNCED ZEE OR ZED.
+   THE FIRST GREEK LETTER IS ALPHA.
+   THE LAST GREEK LETTER IS OMEGA.
+   #+END_EXAMPLE
+3. Use the ~cat~ command to check the contents.
+4. Use ~vi~ to correct any errors.
+5. Display the file.
+6. Using the ~tr~ command, encrypt this file by shifting
+   each letter five characters to the end of the character
+   set. For example, A becomes F, B becomes G, and soon. The
+   end of the alphabet will wrap around. For example, Y
+   becomes D and Z becomes E. Spaces and newlines would be
+   preserved. This is called Caesarian encryption because it
+   was invented by Julius Caesar. Call the encrypted file
+   ~Ch6S3F1Encr~.
+7. Use the cat command to check the contents of the
+   encrypted file.
+8. Display the file.
+9. Now use decryption (reverse strategy) to decrypt the
+   file. Call the new file ~Ch6S3F1~ (original name).
+10. Use the ~cat~ command to look at the contents of the
+    file. Is it the same as the original file?
+11. Display the file.
+12. Quit the terminal.
+
+
+* Exercise 4
+1. Launch a terminal.
+2. Use the ~cat~ command to create and save the followmg
+   file. Do not type the headings. Call it ~Ch6S4F1~.
+   #+BEGIN_EXAMPLE
+   ID   Hour Rate       Hours Worked
+   1420 12.56   45 L
+   3456 14.56   22
+   2341 45.12   34
+   1122 23.55   28
+   1443 23.23   19
+   2351 67.90   56
+   8001 7.00    14
+   #+END_EXAMPLE
+3. Use the ~cat~ command to check its contents.
+4. Use ~vi~ to correct any errors.
+5. Display the file.
+6. Use a command to show the number of workers.
+7. Use a command to sort the file based on id.
+8. Use one single command to show the worker who is paid the
+   highest hourly rate.
+9. Use one single command to show the worker who worked more
+   than anybody else. The command should show only the id of
+   the worker.
+10. Quit the terminal.
+
+* Exercise 5
+1. Launch a terminal.
+2. Use the ~cat~ command to copy file ~Ch6S4F1~ and name it
+   ~Ch6S5F1~.
+3. Use the ~cat~ command to create and save the following
+   file. Do not type the headings. Call it ~Ch6S5F2~.
+   #+BEGIN_EXAMPLE
+   ID   Hourly Rate     Hours Worked
+   1420 12.56   45
+   2456 14.56   22
+   2341 45.12   34
+   1322 23.56   28
+   1443 23.23   19
+   2351 67.90   56
+   3467 56.90   14   
+   #+END_EXAMPLE
+4. Use the ~cat~ command to check the contents of both
+   files.
+5. Use ~vi~ to correct any errors.
+6. Dispplay both files.
+7. Sort each file using the file id as the sort key. Save
+   the sorted files as separate files.
+8. Use a command to merge two files created in step 7 on the
+   id field. Call the new file ~Ch6S5F3~.
+9. Use a command to remove the duplicate from the file and
+   Save it without renaming it.
+10. Display the file.
+11. Quit the terminal.
+
+* Exercise 6
+1. Launch a terminal.
+2. Use the ~cat~ command to create and save the following
+   file. Do not type the headings. Call it ~C6S6F1~.
+   #+BEGIN_EXAMPLE
+   Department   Course    Session    Enrollment
+   CIS     15      1       45
+   CIS     54      1       20
+   BUS     34      2       20
+   ENG     11      2       89
+   CIS     45      1       38
+   MTH     35      1       56
+   MTH     35      2       41
+   PE      17      2       25
+   CIS     54      2       67
+   #+END_EXAMPLE
+3. Use the ~cat~ command to check the contents of the file.
+4. Use ~vi~ to correct any errors.
+5. Display the file.
+6. Use one command to sort the file on department course and
+   session. The resulting file should be ordered first by
+   department; within equal departments, it should be
+   ordered on course; and within equal courses, it should be
+   ordered by session. Hint: use three field specifiers:
+   department, course, and session.
+7. Display the file.
+8. Quit the terminal.
+
+* Exercise 6
+1. Launch a terminal.
+2. Make a copy of ~/etc /passwd~ file and save it in a file
+   called ~Ch6S7F1~.
+3. Use a command to count the number of users in this
+   file. Make a note of it.
+4. Cut the file so that each line has only two columns:
+   login name (column 1) and user id (column 3). Call the
+   new file ~Ch6S7F2~.
+5. Sort the file (~Ch6S7F2~) on login name without renaming
+   it. Save the file.
+6. Use the commands you have learned so far to reorganize
+   the file ~Ch6S7F2~ into six columns using the following
+   format:
+   #+BEGIN_EXAMPLE
+   Name id Name id Name id
+   #+END_EXAMPLE
+   Note that you should divide the number of users by three
+   to find out the number of lines 1n this new format. You
+   should create three files and then paste them together
+8. Quit the terminal.
